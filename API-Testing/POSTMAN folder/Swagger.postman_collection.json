@@ -1,0 +1,1093 @@
+{
+  "info": {
+    "_postman_id": "9ebe37de-a0fd-4872-8cfe-1ac84742ef1a",
+    "name": "Swagger",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "36688429"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"Notes API is Running\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"success\": true,\r\n  \"status\": 200,\r\n  \"message\": \"Notes API is Running\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/health-check",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "health-check"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "User/register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"supreme\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Your test name\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.data.email).to.eql(\"aa1@yopmail.com\");\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 201, \"success\"]);\r",
+                  "});\r",
+                  "const schema = {\r",
+                  "    type: \"object\",\r",
+                  "    required: [\"status\", \"data\"],\r",
+                  "    properties: {\r",
+                  "        status: {},\r",
+                  "        data: {\r",
+                  "            type: \"object\",\r",
+                  "            required: [\"email\"],\r",
+                  "            properties: {\r",
+                  "                email: { type: \"string\" },\r",
+                  "            }\r",
+                  "        }\r",
+                  "    }\r",
+                  "};\r",
+                  "\r",
+                  "pm.test(\"Response schema is valid\", function () {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"supreme\",\r\n  \"email\": \"aa1@yopmail.com\",\r\n  \"password\": \"Admin@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/register",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Users /login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Your test name\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.data.email).to.eql(\"aa1@yopmail.com\");\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"aa1@yopmail.com\",\r\n  \"password\": \"Admin@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/login",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Users/profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Your test name\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.data.email).to.eql(\"aa1@yopmail.com\");\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer a337137016fc4ece8d60b031c9c8c41e6ac2af08be084dadad24809978839fac",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "{{a337137016fc4ece8d60b031c9c8c41e6ac2af08be084dadad24809978839fac}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/profile",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User/profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"super1\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"genius\");\r",
+                  "});\r",
+                  "pm.test(\"Your test name\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.data.email).to.eql(\"aa1@yopmail.com\");\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "e848ef7cc9a44d009cc97807595f0d61c4f136d86f8b4450b405bd59977e0e15",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"name\": \"super1\",\r\n    \"email\": \"s@yopmail.com\",\r\n    \"phone\": \"9876541230\",\r\n    \"company\": \"genius\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/profile",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User/forget-password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 2000ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2500);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"aa1@yopmail.com\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/forgot-password",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User/verify-reset-password-token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"token\" : \"ef0dc2b6a5e2421995a294664451f969dea4e8027bf1458291e471821f23ed6e\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/verify-reset-password-token",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "verify-reset-password-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Users/reset-password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "e848ef7cc9a44d009cc97807595f0d61c4f136d86f8b4450b405bd59977e0e15",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"token\" : \"ef0dc2b6a5e2421995a294664451f969dea4e8027bf1458291e471821f23ed6e\",\r\n    \"password\" : \"Adminuser1\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/change-password",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "change-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Users/change-password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "a337137016fc4ece8d60b031c9c8c41e6ac2af08be084dadad24809978839fac",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"currentPassword\" : \"Admin\",\r\n    \"newPassword\" : \"Admin@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/change-password",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "change-password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Users/logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"User has been successfully logged out\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "e848ef7cc9a44d009cc97807595f0d61c4f136d86f8b4450b405bd59977e0e15",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/logout",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Users/delete-account",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "https://practice.expandtesting.com/notes/api/users/delete-account",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/users/delete-account",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "users",
+                "delete-account"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NOTES",
+      "item": [
+        {
+          "name": "Notes/create",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"Home\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"notes\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"notes\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"false\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "a378d848c6fb4ba8adcc8abb11253caf49852b46b0544492a629aa55620f3ab6",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\" : \"notes\",\r\n    \"description\" : \"API testing for postman test\",\r\n    \"category\" : \"Home\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/notes",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "notes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Notes/ get all notes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "a378d848c6fb4ba8adcc8abb11253caf49852b46b0544492a629aa55620f3ab6",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/notes",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "notes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Notes/{id}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"Home\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"notes\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"notes\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"false\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "a378d848c6fb4ba8adcc8abb11253caf49852b46b0544492a629aa55620f3ab6",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/notes/699456a13c1da7029508595b",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "notes",
+                "699456a13c1da7029508595b"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Notes/{id}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "pm.test(\"Body matches string\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\"Home\");\r",
+                  "});\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "a378d848c6fb4ba8adcc8abb11253caf49852b46b0544492a629aa55620f3ab6",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"API testing for postman test\",\r\n  \"description\": \"Description of the note\",\r\n  \"completed\": true,\r\n  \"category\": \"Home\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/notes/6996ecce5894ad0295a8add6",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "notes",
+                "6996ecce5894ad0295a8add6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Notes/{id}",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "a378d848c6fb4ba8adcc8abb11253caf49852b46b0544492a629aa55620f3ab6",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"id\" : \"699456a13c1da7029508595b\",\r\n  \"completed\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/notes/699456a13c1da7029508595b",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "notes",
+                "699456a13c1da7029508595b"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Notes/{id}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Response time is under 500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+                  "});\r",
+                  "pm.test(\"Content-Type is application/json\", function () {\r",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\"))\r",
+                  "        .to.include(\"application/json\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response has required fields\", function () {\r",
+                  "    let jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"status\");\r",
+                  "});\r",
+                  "pm.test(\"Status is success\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.status).to.be.oneOf([true, 200, \"success\"]);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-auth-token",
+                "value": "a378d848c6fb4ba8adcc8abb11253caf49852b46b0544492a629aa55620f3ab6",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"id\" : \"699456a13c1da7029508595b\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://practice.expandtesting.com/notes/api/notes/6996ecce5894ad0295a8add6",
+              "protocol": "https",
+              "host": [
+                "practice",
+                "expandtesting",
+                "com"
+              ],
+              "path": [
+                "notes",
+                "api",
+                "notes",
+                "6996ecce5894ad0295a8add6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
