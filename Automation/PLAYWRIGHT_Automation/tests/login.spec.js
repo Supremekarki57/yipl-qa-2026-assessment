@@ -12,22 +12,22 @@ test("Login and Create Note Flow", async ({ page }) => {
   // Click Login
   await page.getByText("Login").click();
 
-  // Assert login fields visible
+  //  login fields 
   await expect(page.getByTestId("login-email")).toBeVisible();
   await expect(page.getByTestId("login-password")).toBeVisible();
 
-  // Fill email
+  //  email
   await page.getByTestId("login-email").fill(email);
   await expect(page.getByTestId("login-email")).toHaveValue(email);
 
-  // Fill password
+  //  password
   await page.getByTestId("login-password").fill(password);
   await expect(page.getByTestId("login-password")).toHaveValue(password);
 
   // Submit
   await page.getByTestId("login-submit").click();
 
-  // Assert successful login
+  //  login
   await expect(page.getByTestId("logout-button")).toBeVisible();
 
 await page.waitForTimeout(2000);
