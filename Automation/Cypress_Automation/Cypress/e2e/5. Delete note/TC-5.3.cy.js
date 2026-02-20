@@ -1,7 +1,7 @@
 const description = "Notes app workflow validation using automation";
 
-const name = "Supereme Karki";
-const email = "supreme@yopmail.com";
+const name = "Super Karki";
+const email = "sa3@yopmail.com";
 const password = "Admin@123";
 
 let apiResults = [];
@@ -32,11 +32,11 @@ describe("Track API responses", () => {
     afterEach(() => {
       cy.task("writeApiResults", {
         results: apiResults,
-        filename: "Cypress_Automation/results_api/Login-results.json",
+        filename: "Cypress_Automation/results_api/edit-note-results.json",
       });
       cy.task("writeApiResultsExcel", {
         results: apiResults,
-        filename: "Cypress_Automation/results_api/Login-results.xlsx",
+        filename: "Cypress_Automation/results_api/edit-note-results.xlsx",
       });
     });
 
@@ -68,12 +68,38 @@ describe("Track API responses", () => {
       // Submit login
       cy.get('[data-testid="login-submit"]').click();
 
-      cy.get('[data-testid="logout-button"]').should("be.visible");
+      ///notes
+      //   cy.get('[data-testid="add-new-note"]').click();
+      //   cy.wait(2000);
+      //   cy.get('[data-testid="note-category"]')
+      //     .select("Personal")
+      //     .should("have.value", "Personal");
+      //   cy.wait(2000);
+      //   cy.get('[data-testid="note-title"]')
+      //     .type("My First Note")
+      //     .should("have.value", "My First Note");
+      //   cy.wait(2000);
+      //   cy.contains("Description:").click().type(description);
+      //   // assertion
+      //   cy.get('[data-testid="notes-list"]')
+      //     .contains("My First Note")
+      //     .should("be.visible");
+
+      //   cy.wait(2000);
+      //   cy.get('[data-testid="note-submit"]').click();
+      //   cy.wait(2000);
+      //// edit note
+
+      cy.get('[data-testid="category-home"]').click();
+      cy.wait(2000);
+      //delete
+      cy.get('[data-testid="note-delete"]').click();
+      cy.wait(2000);
+      cy.get('[data-testid="note-delete-confirm"]').click();
 
       //   // Prepare test data for Excel
       const testData = [
         {
-          Username: name,
           Email: email,
           Password: password,
           Timestamp: new Date().toISOString(),
@@ -83,8 +109,8 @@ describe("Track API responses", () => {
 
       // Write test data to Excel
       cy.task("writeToExcel", {
-        filePath: "Cypress/results/Login-data.xlsx",
-        sheetName: "Login",
+        filePath: "Cypress/results/delete-note-data.xlsx",
+        sheetName: "Delete Note",
         data: testData,
       });
     });

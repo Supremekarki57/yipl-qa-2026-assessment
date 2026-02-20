@@ -32,11 +32,13 @@ describe("Track API responses", () => {
     afterEach(() => {
       cy.task("writeApiResults", {
         results: apiResults,
-        filename: "Cypress_Automation/results_api/Login-results.json",
+        filename:
+          "Cypress_Automation/results_api/edit-note-results-TC-4.2.json",
       });
       cy.task("writeApiResultsExcel", {
         results: apiResults,
-        filename: "Cypress_Automation/results_api/Login-results.xlsx",
+        filename:
+          "Cypress_Automation/results_api/edit-note-results-TC-4.2.xlsx",
       });
     });
 
@@ -68,7 +70,39 @@ describe("Track API responses", () => {
       // Submit login
       cy.get('[data-testid="login-submit"]').click();
 
-      cy.get('[data-testid="logout-button"]').should("be.visible");
+      ///notes
+      //   cy.get('[data-testid="add-new-note"]').click();
+      //   cy.wait(2000);
+      //   cy.get('[data-testid="note-category"]')
+      //     .select("Personal")
+      //     .should("have.value", "Personal");
+      //   cy.wait(2000);
+      //   cy.get('[data-testid="note-title"]')
+      //     .type("My First Note")
+      //     .should("have.value", "My First Note");
+      //   cy.wait(2000);
+      //   cy.contains("Description:").click().type(description);
+      //   // assertion
+      //   cy.get('[data-testid="notes-list"]')
+      //     .contains("My First Note")
+      //     .should("be.visible");
+
+      //   cy.wait(2000);
+      //   cy.get('[data-testid="note-submit"]').click();
+      //   cy.wait(2000);
+      //// edit note
+
+      cy.get('[data-testid="category-work"]').click();
+      cy.wait(2000);
+      //edit
+      cy.get('[data-testid="note-edit"]').click();
+      cy.wait(2000);
+      cy.get('[data-testid="note-title"]')
+        .clear()
+        .type("Work Task Updated")
+        .should("have.value", "Work Task Updated");
+      cy.wait(2000);
+      cy.get('[data-testid="note-submit"]').click();
 
       //   // Prepare test data for Excel
       const testData = [
@@ -83,8 +117,8 @@ describe("Track API responses", () => {
 
       // Write test data to Excel
       cy.task("writeToExcel", {
-        filePath: "Cypress/results/Login-data.xlsx",
-        sheetName: "Login",
+        filePath: "Cypress/results/edit-note-data-TC-4.2.xlsx",
+        sheetName: "Edit Note",
         data: testData,
       });
     });

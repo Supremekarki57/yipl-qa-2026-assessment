@@ -1,7 +1,7 @@
 const description = "Notes app workflow validation using automation";
 
-const name = "Super Karki";
-const email = "sa3@yopmail.com";
+const name = "Supereme Karki";
+const email = "supreme@yopmail.com";
 const password = "Wronggg";
 
 let apiResults = [];
