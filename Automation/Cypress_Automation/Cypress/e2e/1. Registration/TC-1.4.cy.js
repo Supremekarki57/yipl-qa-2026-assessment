@@ -1,8 +1,8 @@
 import RegistrationPage from "../../../pages/RegistrationPage";
 
 const description = "Notes app workflow validation using automation";
-const name = "Super Karki";
-const email = "Supreme@yopmail.com";
+const name = "Superme Karki";
+const email = "supreme@yopmail.com";
 const password = "Admin@123";
 
 const iterations = 1;
